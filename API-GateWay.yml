@@ -17,8 +17,8 @@ spring:
           uri: lb://payment-service
           predicates:
             - Path=/payments/**
-        - id: restaurant-service
-          uri: lb://restaurant-service
+        - id: RESTORENT-SERVICE
+          uri: lb://RESTORENT-SERVICE
           predicates:
             - Path=/restaurants/**
         
