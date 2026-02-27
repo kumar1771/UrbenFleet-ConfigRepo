@@ -13,15 +13,24 @@ spring:
           enabled: true
           lower-case-service-id: true
       routes:
-        - id: payment-service
+        - id: Auth-Service
+          uri: http://localhost:8081
+          predicates:
+            - Path=/Users/**
+          filters:
+            - ApiKeyValidation
+        - id: Auth-Service
           uri: lb://payment-service
           predicates:
             - Path=/payments/**
-        - id: RESTORENT-SERVICE
-          uri: lb://RESTORENT-SERVICE
-          predicates:
-            - Path=/restaurants/**
-        
+          filters:
+            - name: JwtValidation
+              args:
+                allowedRoles: FARMER, ADMIN
+        # - id: restaurant-service
+        #   uri: lb://restaurant-service
+        #   predicates:
+        #     - Path=/restaurants/**
 
 eureka:
   client:
