@@ -1,17 +1,53 @@
-server:
-  port: 8080
+# server:
+#   port: 8080
+
+# spring:
+#   application:
+#     name: api-gateway
+
+
+#   cloud:
+#     gateway:
+#       discovery:
+#         locator:
+#           enabled: true
+#           lower-case-service-id: true
+#       routes:
+#         - id: Auth-Service
+#           uri: http://localhost:8081
+#           predicates:
+#             - Path=/Users/**
+#           filters:
+#             - ApiKeyValidation
+#         - id: Auth-Service
+#           uri: lb://payment-service
+#           predicates:
+#             - Path=/payments/**
+#           filters:
+#             - name: JwtValidation
+#               args:
+#                 allowedRoles: FARMER, ADMIN
+#         # - id: restaurant-service
+#         #   uri: lb://restaurant-service
+#         #   predicates:
+#         #     - Path=/restaurants/**
+
+# eureka:
+#   client:
+#     service-url:
+#       defaultZone: http://localhost:8761/eureka
+
+
+app:
+  api-key: ${apikey}
 
 spring:
   application:
-    name: api-gateway
-
-
+  name: Api-gateway
+  # config:
+  #   import: optional:configserver:http://localhost:8888
   cloud:
     gateway:
-      discovery:
-        locator:
-          enabled: true
-          lower-case-service-id: true
       routes:
         - id: Auth-Service
           uri: http://localhost:8081
@@ -19,20 +55,14 @@ spring:
             - Path=/Users/**
           filters:
             - ApiKeyValidation
+
         - id: Auth-Service
-          uri: lb://payment-service
+          uri: http://localhost:4002
           predicates:
-            - Path=/payments/**
+            - Path=/customers/**
           filters:
             - name: JwtValidation
               args:
                 allowedRoles: FARMER, ADMIN
-        # - id: restaurant-service
-        #   uri: lb://restaurant-service
-        #   predicates:
-        #     - Path=/restaurants/**
-
-eureka:
-  client:
-    service-url:
-      defaultZone: http://localhost:8761/eureka
+server:
+  port: 9090
