@@ -65,7 +65,7 @@ spring:
               args:
                 allowedRoles: FARMER, ADMIN
         - id: Auth-Service
-          uri: lb://payment-service
+          uri:  http://localhost:8090
           predicates:
             - Path=/payments/**
           filters:
