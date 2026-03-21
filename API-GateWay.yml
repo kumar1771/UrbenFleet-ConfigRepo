@@ -51,15 +51,15 @@ spring:
   cloud:
     gateway:
       globalcors:
-        cors-configurations:
+        corsConfigurations:
           '[/**]':
             allowedOrigins:
               - "http://localhost:5500"
               - "http://127.0.0.1:5500"
             allowedMethods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"]
-            allowedHeaders: ["*"]   # ← this covers X-Api-Key automatically
+            allowedHeaders: ["*"]
             allowCredentials: true
-            allowCredentials: 
+
       routes:
         - id: auth-service
           uri: http://localhost:8081
@@ -85,6 +85,7 @@ spring:
             - name: JwtValidation
               args:
                 allowedRoles: "FARMER,ADMIN"
+
         - id: farmer-service
           uri: http://localhost:7070
           predicates:
@@ -93,13 +94,12 @@ spring:
             - name: JwtValidation
               args:
                 allowedRoles: "FARMER,ADMIN"
-       - id: farmer-goods-service
-         uri: http://localhost:7071
-         predicates: 
-           - Path=/products/**
-        filters:
+
+        - id: farmer-goods-service
+          uri: http://localhost:7071
+          predicates:
+            - Path=/products/**
+          filters:
             - name: JwtValidation
               args:
                 allowedRoles: "FARMER,ADMIN"
-          
-        
