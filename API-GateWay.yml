@@ -119,7 +119,7 @@ spring:
           predicates:
             - Path=/products/**
             - Method=GET
-         filters:
-           - name: JwtValidation
-             args:
-               allowedRoles: "BUYER"
+          filters:
+            - name: JwtValidation
+              args:
+                allowedRoles: "BUYER"
