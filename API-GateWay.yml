@@ -103,3 +103,12 @@ spring:
             - name: JwtValidation
               args:
                 allowedRoles: "FARMER,ADMIN"
+
+        - id: buyer-service
+          uri: http://localhost:7072
+          predicates:
+            - Path=/buyer/**
+          filters:
+            - name: JwtValidation
+              args:
+                allowedRoles: "BUYER,ADMIN"
